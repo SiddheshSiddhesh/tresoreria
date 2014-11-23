@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Donors Page</h1>
+
+  <ul class="nav nav-tabs">
+    <li><a href="/donors">Single Donors</a></li>
+    <li class="active"><a href="/donors/subscribers">Subscription Donors</a></li>
+  </ul>
+
+  <h2>Subscription Donors (Total: ..)</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>firstname</th>
+        <th>lastname</th>
+        <th>created</th>
+        <th>€</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in subscription_donors %}
+      <tr>
+        <td>{{ item.firstname }}</td>
+        <td>{{ item.lastname }}</td>
+        <td>{{ item.created }}</td>
+        <td>{{ item.planID }}</td>
+        <td><a href="{{ detail_uri }}{{ item.subscriberID }}" title="Look all data from this donor"><span class="glyphicon glyphicon-plus"></span></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

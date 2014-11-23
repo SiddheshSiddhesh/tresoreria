@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>{% block title '' %} | Guanyem</title>
-  <link rel="shortcut icon" href="{{ app.request.basepath }}/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link href="{{ app.request.basepath }}/css/style.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="{{ app.request.basepath }}/favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div class="container">
@@ -19,5 +19,6 @@
     {% block content %}{% endblock %}
 
   </div>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

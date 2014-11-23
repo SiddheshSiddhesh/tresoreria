@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Results Page</h1>
+
+  <h2>Subscription plans chosen</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Plan ID</th>
+        <th>#</th>
+        <th>€</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in subscriptions %}
+      <tr>
+        <td>{{ item.plan }}</td>
+        <td>{{ item.number }}</td>
+        <td>{{ item.money }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr class="active">
+        <td>Total</td>
+        <td><strong>{{ subscriptions_number }}</strong></td>
+        <td><strong>{{ subscriptions_money }} €</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h2>Single Payments total money</h2>
+  <p><strong>{{ payments_money }} €</strong></p>
+{% endblock %}

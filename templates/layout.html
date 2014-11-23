@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title '' %} | Guanyem</title>
+  <link rel="shortcut icon" href="{{ app.request.basepath }}/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link href="{{ app.request.basepath }}/css/style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <nav id="navigation">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/donors">Donors</a></li>
+        <li><a href="/results">Results</a></li>
+      </ul>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+  </div>
+</body>
+</html>

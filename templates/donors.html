@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Donors Page</h1>
+
+  <h2>Single Payment Donors</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>paymentID</th>
+        <th>€</th>
+        <th>firstname</th>
+        <th>lastname</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in single_donors %}
+      <tr>
+        <td>{{ item.paymentID }}</td>
+        <td>{{ item.money }}</td>
+        <td>{{ item.firstname }}</td>
+        <td>{{ item.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

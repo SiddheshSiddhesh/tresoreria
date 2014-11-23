@@ -20,3 +20,6 @@
 
 # Composer PHAR
 /composer.phar
+
+# secure data
+config/secure.php

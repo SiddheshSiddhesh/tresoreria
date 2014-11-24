@@ -18,8 +18,14 @@
     <dt>lastname</dt>
     <dd>{{ detail.lastname }}</dd>
 
+    {% if detail.money is defined %}
     <dt>payment</dt>
-    <dd>{{ detail.money }}</dd>
+    <dd>{{ detail.money }} €</dd>
+    {% endif %}
+    {% if detail.planID is defined %}
+    <dt>planID</dt>
+    <dd>{{ detail.planID }} €</dd>
+    {% endif %}
 
     <dt>created</dt>
     <dd>{{ detail.created }}</dd>

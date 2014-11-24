@@ -1,0 +1,4 @@
+<?php
+
+define('DB_PASSWORD', 'DATABASE PASSWORD');
+define('PRIVATE_KEY_PATH', __DIR__.'PATH TO PRIVATE KEY');

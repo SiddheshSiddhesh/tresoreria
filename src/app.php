@@ -9,6 +9,13 @@ use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
 
+// secure data
+require_once __DIR__.'/../config/data.php';
+
+// RSA Encryption
+require_once __DIR__.'/../lib/Math/BigInteger.php';
+require_once __DIR__.'/../lib/Crypt/RSA.php';
+
 $app = new Application();
 
 // db
@@ -18,7 +25,7 @@ $app->register(new DoctrineServiceProvider(), array(
         'host' => 'localhost',
         'dbname' => 'tresor',
         'user' => 'tresor',
-        'password' => 'FZk5bVeChkRc38j',
+        'password' => DB_PASSWORD,
         'charset' => 'utf8',
     ),
 ));

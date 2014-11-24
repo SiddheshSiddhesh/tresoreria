@@ -22,4 +22,4 @@
 /composer.phar
 
 # secure data
-config/secure.php
+config/data.php

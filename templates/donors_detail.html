@@ -4,8 +4,8 @@
   <h1>Donors Page</h1>
 
   <ul class="nav nav-tabs">
-    <li><a href="/donors">Single Donors</a></li>
-    <li><a href="/donors/subscribers">Subscription Donors</a></li>
+    <li{{ type == 'single' ? ' class="active"' : '' }}><a href="/donors">Single Donors</a></li>
+    <li{{ type == 'subscriber' ? ' class="active"' : '' }}><a href="/donors/subscribers">Subscription Donors</a></li>
   </ul>
 
   <h2>{{ detail.firstname }} {{ detail.lastname }}</h2>

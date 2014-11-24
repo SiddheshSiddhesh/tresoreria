@@ -82,6 +82,7 @@ $app->get('/donors/{type}/{id}', function ($type, $id) use ($app) {
     }
 
     $vars = array(
+      'type' => $type,
       'detail' => $detail,
     );
     return $app['twig']->render('donors_detail.html', $vars);

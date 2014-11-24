@@ -1,7 +1,7 @@
 {
-    "name": "fabpot/silex-skeleton",
-    "description": "A pre-configured skeleton for the Silex microframework",
-    "license": "MIT",
+    "name": "guanyem-tresoreria",
+    "description": "A donations web-book for Guanyem, build on the Silex microframework",
+    "license": "GNU",
     "type": "project",
     "require": {
         "php": ">=5.3.3",

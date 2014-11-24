@@ -7,12 +7,13 @@ use Silex\Provider\WebProfilerServiceProvider;
 require __DIR__.'/prod.php';
 
 // enable the debug mode
-$app['debug'] = true;
+//$app['debug'] = true; // FIX: here is too late
 
 $app->register(new MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__.'/../var/logs/silex_dev.log',
 ));
 
+// FIX: this provider doesn't work
 /*$app->register(new WebProfilerServiceProvider(), array(
     'profiler.cache_dir' => __DIR__.'/../var/cache/profiler',
 ));*/

@@ -17,6 +17,7 @@ require_once __DIR__.'/../lib/Math/BigInteger.php';
 require_once __DIR__.'/../lib/Crypt/RSA.php';
 
 $app = new Application();
+$app['debug'] = true; // FIX: this should be in config/dev.php, but there is too late
 
 // db
 $app->register(new DoctrineServiceProvider(), array(

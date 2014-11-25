@@ -26,34 +26,37 @@ $app->error(function (\Exception $e, $code) use ($app) {
 });
 
 // homepage
-$app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html', array());
+$app->get('/', function (Request $request) use ($app) {
+    return $app['twig']->render('index.html', array(
+        'error' => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
 })->bind('homepage');
 
 // donors page
-$app->get('/donors', function () use ($app) {
+$app->get('/admin/donors', function () use ($app) {
     $sql = "SELECT paymentID, FLOOR(amount/100) AS money, firstname, lastname, created FROM blog_fullstripe_payments WHERE eventID = ? ORDER BY created DESC";
     $single_donors = $app['db']->fetchAll($sql, array('BANK ACCOUNT PAYMENT'));
 
     $vars = array(
-      'detail_uri' => '/donors/single/',
+      'detail_uri' => '/admin/donors/single/',
       'single_donors' => $single_donors,
     );
     return $app['twig']->render('donors_single.html', $vars);
 });
-$app->get('/donors/subscribers', function () use ($app) {
+$app->get('/admin/donors/subscribers', function () use ($app) {
     $sql = "SELECT subscriberID, planID, firstname, lastname, created FROM blog_fullstripe_subscribers WHERE stripeCustomerID = ? ORDER BY created DESC";
     $subscription_donors = $app['db']->fetchAll($sql, array('BANK ACCOUNT PAYMENT'));
 
     $vars = array(
-      'detail_uri' => '/donors/subscriber/',
+      'detail_uri' => '/admin/donors/subscriber/',
       'subscription_donors' => $subscription_donors,
     );
     return $app['twig']->render('donors_subscription.html', $vars);
 });
 
 // donor detail
-$app->get('/donors/{type}/{id}', function ($type, $id) use ($app) {
+$app->get('/admin/donors/{type}/{id}', function ($type, $id) use ($app) {
     if ($type == 'single'){
       $sql = "SELECT FLOOR(amount/100) AS money, firstname, lastname, email, telephone, documentType, documentID, birthDate, addressCountry, addressLine1, addressCity, addressState, addressZip, created, bankCCC, bankIBAN, bankBIC 
               FROM blog_fullstripe_payments
@@ -89,7 +92,7 @@ $app->get('/donors/{type}/{id}', function ($type, $id) use ($app) {
 });
 
 // results page
-$app->get('/results', function () use ($app) {
+$app->get('/admin/results', function () use ($app) {
     $sql = "SELECT FLOOR(SUM(amount)/100) AS money FROM blog_fullstripe_payments";
     $payments_money = $app['db']->fetchAssoc($sql);
 

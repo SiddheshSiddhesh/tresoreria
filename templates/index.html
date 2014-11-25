@@ -1,10 +1,26 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="jumbotron">
+<div class="intro">
   <h1>Welcome to the Treasure!</h1>
   <p>In this page we will show all the Bank transfer donors, their payment data and all the monetary results (bank transfer and credit card combined) until now.</p>
-  <p><a class="btn btn-primary btn-lg" href="/results" role="button">Show me the money!</a></p>
+
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+  
+  {% else %}
+  <p><strong>In order to use this web, you must login first:</strong></p>
+
+  <form action="{{ path('admin_login') }}" method="post">
+    <p class="text-danger">{{ error }}</p>
+    <div class="form-group">
+      <input type="text" name="_username" value="{{ last_username }}" placeholder="User" />
+    </div>
+    <div class="form-group">
+      <input type="password" name="_password" value="" placeholder="Password" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  {% endif %}
 </div>
 
 {% endblock %}

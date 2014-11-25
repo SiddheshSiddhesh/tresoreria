@@ -32,15 +32,23 @@ $app->register(new DoctrineServiceProvider(), array(
 ));
 
 // auth
+$app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new SecurityServiceProvider(), array(
     'security.firewalls' => array(
-      'main' => array(
-          'pattern' => '^/',
-          'http' => true,
-          'users' => array(
-              'admin' => array('ROLE_ADMIN', 'qlFDImsuG6ToRzXyney95p6hs+dAf83oOVbamO2KQXzgiyjEUZ88aypNFMqJ5hmLW1kuxSQRqSYlc4m/6cAarw=='),
-          ),
-          'logout' => array('logout_path' => '/logout'), // not working
+      'secured' => array(
+        'pattern' => '^/admin/',
+        'form' => array(
+          'login_path' => '/',
+          'check_path' => '/admin/login',
+          'default_target_path' => '/admin/donors',
+        ),
+        'logout' => array('logout_path' => '/admin/logout'),
+        'users' => array(
+            'admin' => array('ROLE_ADMIN', 'qlFDImsuG6ToRzXyney95p6hs+dAf83oOVbamO2KQXzgiyjEUZ88aypNFMqJ5hmLW1kuxSQRqSYlc4m/6cAarw=='),
+        ),
+      ),
+      'unsecured' => array(
+        'anonymous' => true,
       ),
     ),
 ));

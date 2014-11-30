@@ -23,9 +23,9 @@ $app['debug'] = true; // FIX: this should be in config/dev.php, but there is too
 $app->register(new DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver' => 'pdo_mysql',
-        'host' => 'localhost',
-        'dbname' => 'tresor',
-        'user' => 'tresor',
+        'host' => DB_HOST,
+        'dbname' => DB_NAME,
+        'user' => DB_USER,
         'password' => DB_PASSWORD,
         'charset' => 'utf8',
     ),

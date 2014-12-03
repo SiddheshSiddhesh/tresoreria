@@ -35,28 +35,60 @@ $app->get('/', function (Request $request) use ($app) {
 
 // donors page
 $app->get('/admin/donors', function () use ($app) {
-    $sql = "SELECT paymentID, FLOOR(amount/100) AS money, firstname, lastname, created FROM blog_fullstripe_payments WHERE eventID = ? ORDER BY created DESC";
-    $single_donors = $app['db']->fetchAll($sql, array('BANK ACCOUNT PAYMENT'));
+    $sql = "SELECT paymentID, FLOOR(amount/100) AS money, firstname, lastname, created, documentType, documentID, bankCCC, bankIBAN, bankBIC FROM blog_fullstripe_payments WHERE eventID = ? ORDER BY created DESC";
+    $results = $app['db']->fetchAll($sql, array('BANK ACCOUNT PAYMENT'));
+
+    // decrypt encrypted data
+    $rsa = new Crypt_RSA();
+    $private_key = file_get_contents(PRIVATE_KEY_PATH);
+    $rsa->loadKey($private_key);
+    foreach ($results as $key => $value) {
+      switch ($key){
+        case 'bankCCC':
+        case 'bankIBAN':
+        case 'bankBIC':
+          if ($value !== 'BANK FIELD NOT FILLED'){
+            $results[$key] = $rsa->decrypt($value);
+          }
+          break;
+      }
+    }
 
     $vars = array(
       'detail_uri' => '/admin/donors/single/',
-      'single_donors' => $single_donors,
+      'single_donors' => $results,
     );
     return $app['twig']->render('donors_single.html', $vars);
 });
 $app->get('/admin/donors/subscribers', function () use ($app) {
-    $sql = "SELECT subscriberID, planID, firstname, lastname, created FROM blog_fullstripe_subscribers WHERE stripeCustomerID = ? ORDER BY created DESC";
-    $subscription_donors = $app['db']->fetchAll($sql, array('BANK ACCOUNT PAYMENT'));
+    $sql = "SELECT subscriberID, planID, firstname, lastname, created, documentType, documentID, bankCCC, bankIBAN, bankBIC FROM blog_fullstripe_subscribers WHERE stripeCustomerID = ? ORDER BY created DESC";
+    $results = $app['db']->fetchAll($sql, array('BANK ACCOUNT PAYMENT'));
+
+    // decrypt encrypted data
+    $rsa = new Crypt_RSA();
+    $private_key = file_get_contents(PRIVATE_KEY_PATH);
+    $rsa->loadKey($private_key);
+    foreach ($results as $key => $value) {
+      switch ($key){
+        case 'bankCCC':
+        case 'bankIBAN':
+        case 'bankBIC':
+          if ($value !== 'BANK FIELD NOT FILLED'){
+            $results[$key] = $rsa->decrypt($value);
+          }
+          break;
+      }
+    }
 
     $vars = array(
       'detail_uri' => '/admin/donors/subscriber/',
-      'subscription_donors' => $subscription_donors,
+      'subscription_donors' => $results,
     );
     return $app['twig']->render('donors_subscription.html', $vars);
 });
 
 // donor detail
-$app->get('/admin/donors/{type}/{id}', function ($type, $id) use ($app) {
+/*$app->get('/admin/donors/{type}/{id}', function ($type, $id) use ($app) {
     if ($type == 'single'){
       $sql = "SELECT FLOOR(amount/100) AS money, firstname, lastname, email, telephone, documentType, documentID, birthDate, addressCountry, addressLine1, addressCity, addressState, addressZip, created, bankCCC, bankIBAN, bankBIC 
               FROM blog_fullstripe_payments
@@ -89,7 +121,7 @@ $app->get('/admin/donors/{type}/{id}', function ($type, $id) use ($app) {
       'detail' => $detail,
     );
     return $app['twig']->render('donors_detail.html', $vars);
-});
+});*/
 
 // results page
 $app->get('/admin/results', function () use ($app) {

@@ -17,18 +17,24 @@
         <th>firstname</th>
         <th>lastname</th>
         <th>created</th>
+        <th>document</th>
+        <th>bankCCC</th>
+        <th>bankIBAN</th>
+        <th>bankBIC</th>
         <th>€</th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
-      {% for item in single_donors %}
+      {% for item in list %}
       <tr>
         <td>{{ item.firstname }}</td>
         <td>{{ item.lastname }}</td>
         <td>{{ item.created }}</td>
+        <td>{{ item.documentType }}: {{ item.documentID }}</td>
+        <td>{{ item.bankCCC }}</td>
+        <td>{{ item.bankIBAN }}</td>
+        <td>{{ item.bankBIC }}</td>
         <td>{{ item.money }}</td>
-        <td><a href="{{ detail_uri }}{{ item.paymentID }}" title="Look all data from this donor"><span class="glyphicon glyphicon-plus"></span></a></td>
       </tr>
       {% endfor %}
     </tbody>

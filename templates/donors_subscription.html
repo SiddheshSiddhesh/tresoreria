@@ -22,6 +22,7 @@
         <th>bankIBAN</th>
         <th>bankBIC</th>
         <th>plan</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
         <td>{{ item.bankIBAN }}</td>
         <td>{{ item.bankBIC }}</td>
         <td>{{ item.planID }}</td>
+        <td><a href="{{ detail_uri }}{{ item.subscriberID }}" title="Look all data from this donor"><span class="glyphicon glyphicon-plus"></span></a></td>
       </tr>
       {% endfor %}
     </tbody>
